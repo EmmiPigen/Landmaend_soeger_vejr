@@ -1012,9 +1012,9 @@ async function tidszone(){
   //Fixer fejl med jordapi når tidzonene er Grønland ved at erstatte den med en anden tidzone med samme tidsforskelle
   tidzoneNavn = tidzoneJson.timezone.name;
   if(tidzoneNavn == 'America/Nuuk'){
-    tidzoneNavn = 'America/Miquelon'
+    tidzoneNavn = 'America/Miquelon' 
   }
-  //getVejrData();
+  getVejrData();
 }
 
 //Ved søgning efter en ny by skal data i alle 5 dages array slettes så nyt kan tilføjes fra 0 igen
