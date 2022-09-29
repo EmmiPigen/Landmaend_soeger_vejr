@@ -64,38 +64,42 @@ let jordFugtighed9_27cm = [];
 let jordFugtighed27_81cm = [];
 
 function preload(){
-  //Baggrundbillede for jorden
-  mark = loadImage('Photos/Mark_6.png');
+  mark = loadImage("Iconer/Mark_6.png");
+  
   //nat iconer
-  måneRegnIcon = loadImage('Photos/Iconer/Måne_med_regn.png');
-  måneOverskyetIcon = loadImage('Photos/Iconer/Måne_overskyet.png');
-  måneTordenIcon = loadImage('Photos/Iconer/Måne_torden.png');
-  måneIcon = loadImage('Photos/Iconer/Måne.png');
-  måneSneIcon = loadImage('Photos/Iconer/Overskyet_måne_med_sne.png');
-  måneTågeIcon = loadImage('Photos/Iconer/Overskyet_måne_med_tåge.png');
+  måneIcon = loadImage("Iconer/clear sky (nat).png");
+  måneRegnIcon = loadImage("Iconer/rain (nat).png");
+  måneTordenIcon = loadImage("Iconer/thunderstorm (nat).png");
+  måneTågeIcon = loadImage("Iconer/mist (nat).png");
+  TågeIconNat = loadImage("Iconer/mist (nat).png");
+
   //overskyet uden måne eller sol
-  overskyetTågeIcon = loadImage('Photos/Iconer/Overskyet_med_tåge.png');
-  overskyetSneIcon = loadImage('Photos/Iconer/Overskyet_sne.png');
-  overskyetIcon = loadImage('Photos/Iconer/Overskyet.png');
-  regnIcon = loadImage('Photos/Iconer/Regn.png');
+  overskyetIcon = loadImage("Iconer/scattered clouds (dag).png");
+  overskyetIconNat = loadImage("Iconer/scattered clouds (nat).png");
+  overskyetSneIcon = loadImage("Iconer/snow (dag).png");
+  måneSneIcon = loadImage("Iconer/snow (nat).png");
+  regnIconNat = loadImage("Iconer/rain (nat).png");
+  regnIcon = loadImage("Iconer/shower rain (dag).png");
+  regnIconNat = loadImage("Iconer/shower rain (nat).png");
+  
   //sol iconer
-  solRegnIcon = loadImage('Photos/Iconer/Sol_med_regn.png');
-  solOverskyetIcon = loadImage('Photos/Iconer/Sol_overskyet.png');
-  solIcon = loadImage('Photos/Iconer/Sol.png');
-  //tåge og torden iconer
-  tågeIcon = loadImage('Photos/Iconer/Tåge.png');
-  tordenIcon = loadImage('Photos/Iconer/Torden_overskyet.png');
+  solRegnIcon = loadImage("Iconer/rain (dag).png");
+  solOverskyetIcon = loadImage("Iconer/few clouds (dag).png");
+  solIcon = loadImage("Iconer/clear sky (dag).png");
+  TågeIcondag = loadImage("Iconer/mist (dag).png");
+  tågeIcon = loadImage("Iconer/mist (dag).png");
+  tordenIcon = loadImage("Iconer/thunderstorm (dag).png");
 
   //InformationIconer
-  søgIcon = loadImage('Photos/Iconer/SøgIcon.svg');
-  vindIcon = loadImage('Photos/Iconer/vind.svg');
-  synlighedIcon = loadImage('Photos/Iconer/Synlighed.svg');
-  UVIcon = loadImage('Photos/Iconer/UV.png');
-  solOpIcon = loadImage('Photos/Iconer/solOp.png');
-  solNedIcon = loadImage('Photos/Iconer/solNed.png');
-  regnMængdeIcon = loadImage('Photos/Iconer/regnMængde.svg');
-  placeringIcon = loadImage('Photos/Iconer/placering.png');
-  advarselIcon = loadImage('Photos/Iconer/advarsel.png');
+  søgIcon = loadImage("Iconer/SøgIcon.svg");
+  vindIcon = loadImage("Iconer/vind (selv).png");
+  synlighedIcon = loadImage("Iconer/øje.png");
+  UVIcon = loadImage("Iconer/UV (selv).png");
+  solOpIcon = loadImage("Iconer/sol går op.png");
+  solNedIcon = loadImage("Iconer/sol går ned.png");
+  regnMængdeIcon = loadImage("Iconer/dråbe (selv).png");
+  placeringIcon = loadImage("Iconer/placering.png");
+  advarselIcon = loadImage("Iconer/Advarsel 2.png");
 }
 
 function setup(){
@@ -215,7 +219,7 @@ function baggrund(){
 //Bokse til informationer
 function infoBokse(){
   noStroke();
-  fill(255);
+  fill(147, 162, 184, 90);
 
   //Variabler for dato Boks
   datoBoxX = kantBoxWidth + ((hovedBlokWidth / 6));
@@ -281,53 +285,49 @@ function infoBokse(){
 
 //Iconer for information for iDag
 function infoIconerIdag(){
-  //Vindicon
-  vindIconIdagX = vejrInfoBoxX + 20;
-  vindIconIdagY = vejrInfoBoxY;
-  vindIconIdagWidth = (vejrInfoBoxWidth / 2) / 4
-  vindIconIdagHeight = (vejrInfoBoxHeight / 3);
+  vindIconIdagX = vejrInfoBoxX - 3;
+  vindIconIdagY = vejrInfoBoxY - 28;
+  vindIconIdagWidth = (vejrInfoBoxWidth / 4.5);
+  vindIconIdagHeight = (vejrInfoBoxHeight / 1.5);
 
   image(vindIcon, vindIconIdagX, vindIconIdagY, vindIconIdagWidth, vindIconIdagHeight);
 
-  //regnicon
-  regnIconX = vindIconIdagX;
+  regnIconX = vejrInfoBoxX+20;
   regnIconY = vejrInfoBoxY + (vejrInfoBoxHeight / 3) + 5;
-  regnIconWidth = vindIconIdagWidth;
-  regnIconHeight = vindIconIdagHeight - 10;
+  regnIconWidth = (vejrInfoBoxWidth / 2) / 4;
+  regnIconHeight = (vejrInfoBoxHeight / 3) - 10;
 
   image(regnMængdeIcon, regnIconX, regnIconY, regnIconWidth, regnIconHeight);
 
-  //UVicon
   UVIconX = vejrInfoBoxX + (vejrInfoBoxWidth / 2) + 20;
-  UVIconY = vindIconIdagY + 5;
-  UVIconWidth = vindIconIdagWidth;
-  UVIconHeight = vindIconIdagHeight - 10
+  UVIconY = vejrInfoBoxY + 5;
+  UVIconWidth = (vejrInfoBoxWidth / 2) / 4;
+  UVIconHeight = (vejrInfoBoxHeight / 3) - 10;
 
   image(UVIcon, UVIconX, UVIconY, UVIconWidth, UVIconHeight);
 
-  //Synlighedicon
-  synlighedIconX = UVIconX;
-  synlighedIconY = regnIconY;
-  synlighedIconWidth = UVIconWidth;
-  synlighedIconHeight = UVIconHeight;
+  synlighedIconX = UVIconX-25;
+  synlighedIconY = regnIconY-25;
+  synlighedIconWidth = UVIconWidth+45;
+  synlighedIconHeight =  regnIconHeight+45;
 
   image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
 
-  //SolOpicon
-  solOpIconX = vindIconIdagX
+  solOpIconX = vejrInfoBoxX+20
   solOpIconY = regnIconY + (vejrInfoBoxHeight / 3)
   solOpIconWidth = (vejrInfoBoxWidth / 2) / 3.5
   solOpIconHeight = (vejrInfoBoxHeight / 3) - 10;
 
   image(solOpIcon, solOpIconX, solOpIconY, solOpIconWidth, solOpIconHeight);
   
-  //SolNedicon
   solNedIconX = UVIconX
   solNedIconY = solOpIconY
   solNedIconWidth = solOpIconWidth;
   solNedIconHeight = solOpIconHeight;
 
   image(solNedIcon, solNedIconX, solNedIconY, solNedIconWidth, solNedIconHeight);
+
+ 
 }
 
 //Iconer for information for 5 dage
@@ -755,7 +755,7 @@ function advarselFelt(){
   advarselTekstY = advarselBoksY + 16;
 
   //Advarsel boks
-  fill(255);
+  fill(147, 162, 184, 90);
   rect(advarselBoksX, advarselBoksY, advarselBoksWidth, advarselBoksHeight, advarselBoksKant);
 
   //Advarsel Billede
