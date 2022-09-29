@@ -499,7 +499,7 @@ function tekst5Dage(){
          dagDato5Dage = iDag.getDate() + p}
       } else if(Number.isInteger(iDag.getFullYear() / 4) == true){//Hvis året divideret med 4 giver et resultat uden decimaltal(skudår)
          if(iDag.getDate() >= 24){
-          dagDato5Dage = dato5Dage29[d + 2];
+          dagDato5Dage = dato5Dage29[d + 1];
        } else if (iDag.getDate < 23){
           dagDato5Dage = iDag.getDate() + p}
        }
