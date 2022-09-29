@@ -71,21 +71,20 @@ function preload(){
   måneRegnIcon = loadImage("Iconer/rain (nat).png");
   måneTordenIcon = loadImage("Iconer/thunderstorm (nat).png");
   måneTågeIcon = loadImage("Iconer/mist (nat).png");
-  TågeIconNat = loadImage("Iconer/mist (nat).png");
+  måneOverskyetIcon = loadImage("Iconer/few clouds (dag).png");
 
   //overskyet uden måne eller sol
   overskyetIcon = loadImage("Iconer/scattered clouds (dag).png");
   overskyetIconNat = loadImage("Iconer/scattered clouds (nat).png");
-  overskyetSneIcon = loadImage("Iconer/snow (dag).png");
+  dagSneIcon = loadImage("Iconer/snow (dag).png");
   måneSneIcon = loadImage("Iconer/snow (nat).png");
-  regnIconNat = loadImage("Iconer/rain (nat).png");
-  regnIcon = loadImage("Iconer/shower rain (dag).png");
-  regnIconNat = loadImage("Iconer/shower rain (nat).png");
+  StorRegnIcon = loadImage("Iconer/shower rain (dag).png");
+  StorRegnIconNat = loadImage("Iconer/shower rain (nat).png");
   
   //sol iconer
+  solIcon = loadImage("Iconer/clear sky (dag).png");
   solRegnIcon = loadImage("Iconer/rain (dag).png");
   solOverskyetIcon = loadImage("Iconer/few clouds (dag).png");
-  solIcon = loadImage("Iconer/clear sky (dag).png");
   TågeIcondag = loadImage("Iconer/mist (dag).png");
   tågeIcon = loadImage("Iconer/mist (dag).png");
   tordenIcon = loadImage("Iconer/thunderstorm (dag).png");
@@ -285,10 +284,10 @@ function infoBokse(){
 
 //Iconer for information for iDag
 function infoIconerIdag(){
-  vindIconIdagX = vejrInfoBoxX - 3;
-  vindIconIdagY = vejrInfoBoxY - 28;
-  vindIconIdagWidth = (vejrInfoBoxWidth / 4.5);
-  vindIconIdagHeight = (vejrInfoBoxHeight / 1.5);
+  vindIconIdagX = vejrInfoBoxX + 20;
+  vindIconIdagY = vejrInfoBoxY;
+  vindIconIdagWidth = (vejrInfoBoxWidth / 2) / 4
+  vindIconIdagHeight = (vejrInfoBoxHeight / 3);
 
   image(vindIcon, vindIconIdagX, vindIconIdagY, vindIconIdagWidth, vindIconIdagHeight);
 
@@ -306,10 +305,10 @@ function infoIconerIdag(){
 
   image(UVIcon, UVIconX, UVIconY, UVIconWidth, UVIconHeight);
 
-  synlighedIconX = UVIconX-25;
-  synlighedIconY = regnIconY-25;
-  synlighedIconWidth = UVIconWidth+45;
-  synlighedIconHeight =  regnIconHeight+45;
+  synlighedIconX = UVIconX;
+  synlighedIconY = regnIconY;
+  synlighedIconWidth = UVIconWidth;
+  synlighedIconHeight = UVIconHeight;
 
   image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
 
@@ -393,7 +392,7 @@ function tekst(){
   //X værdi afhænging af længden af lokalitetteksten
   placeringIconX = (width / 2) - (textWidth(byNavn + regionNavn + landNavn) / 2) - 35 / 2; 
   placeringIconY = headerHeight / 2;
-  placeringIconWidth = 35;
+  placeringIconWidth = 40;
   placeringIconHeight = headerHeight;
 
   imageMode(CENTER);
@@ -646,35 +645,55 @@ function iconID(){
       vejrIconIdag = måneTordenIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 300 || weatherID == 301 || weatherID == 302 || weatherID == 310 || weatherID == 311 || weatherID == 312 || weatherID == 313 || weatherID == 314 || weatherID == 321 || weatherID == 500 || weatherID == 501 || weatherID == 502 || weatherID == 503 || weatherID == 504 || weatherID == 520 || weatherID == 521 || weatherID == 522 || weatherID == 531){
+  } 
+  //små regn
+  else if(weatherID == 300 || weatherID == 301 || weatherID == 302 || weatherID == 310 || weatherID == 311 || weatherID == 312 || weatherID == 313 || weatherID == 314 || weatherID == 321){
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = regnIcon;
     } else {
       vejrIconIdag = måneRegnIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 511 || weatherID == 600 || weatherID == 601 || weatherID == 602 || weatherID == 611 || weatherID == 612 || weatherID ==  613 || weatherID == 615 || weatherID == 616 || weatherID == 620 || weatherID == 621 || weatherID == 622){
+  } 
+  //stor regn
+  else if(weatherID == 500 || weatherID == 501 || weatherID == 502 || weatherID == 503 || weatherID == 504 || weatherID == 520 || weatherID == 521 || weatherID == 522 || weatherID == 531){
     if(tidNu > solOp && tidNu < solNed){
-      vejrIconIdag = overskyetSneIcon;
+      vejrIconIdag = StorRegnIcon;
+    } else {
+      vejrIconIdag = StorRegnIconNat;
+    }
+    iconBilledeIdag();
+  }
+  //sne
+  else if(weatherID == 511 || weatherID == 600 || weatherID == 601 || weatherID == 602 || weatherID == 611 || weatherID == 612 || weatherID ==  613 || weatherID == 615 || weatherID == 616 || weatherID == 620 || weatherID == 621 || weatherID == 622){
+    if(tidNu > solOp && tidNu < solNed){
+      vejrIconIdag = dagSneIcon;
     } else {
       vejrIconIdag = måneSneIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 701 || weatherID == 711 || weatherID == 721 || weatherID == 731 || weatherID == 741 || weatherID == 751 || weatherID ==  761 || weatherID == 762 || weatherID == 771 || weatherID == 781){
+  } 
+  //tåge
+  else if(weatherID == 701 || weatherID == 711 || weatherID == 721 || weatherID == 731 || weatherID == 741 || weatherID == 751 || weatherID ==  761 || weatherID == 762 || weatherID == 771 || weatherID == 781){
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = tågeIcon;
     } else {
       vejrIconIdag = måneTågeIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID  == 800){
+  } 
+  //sol
+  else if(weatherID  == 800){
     if(tidNu > solOp && tidNu < solNed){
     vejrIconIdag = solIcon;
     } else {
     vejrIconIdag = måneIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 801 || weatherID == 802 || weatherID == 803 || weatherID == 804){
+ 
+  } 
+  //Overskyet
+  else if(weatherID == 801 || weatherID == 802 || weatherID == 803 || weatherID == 804){
     if(tidNu > solOp && tidNu < solNed){
     vejrIconIdag = solOverskyetIcon;
     } else {
@@ -691,7 +710,7 @@ function iconBilledeIdag(){
   iconIdagY = hovedBlokHeight / 2 + 20;
   iconIdagSize = hovedBlokWidth / 5;
 
-  image(vejrIconIdag, iconIdagX, iconIdagY, iconIdagSize, iconIdagSize);
+  image(vejrIconIdag, iconIdagX, iconIdagY, iconIdagSize+20, iconIdagSize);
 }
 
 //Vejricon billedevariabler for 5 dage
@@ -718,13 +737,17 @@ function iconID5Dage(){
     image(tordenIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
     //vejrIcon5dage = tordenIcon;
 
-  } else if(q == 300 || q == 301 || q == 302 || q == 310 || q == 311 || q == 312 || q == 313 || q == 314 || q == 321 || q == 500 || q == 501 || q == 502 || q == 503 || q == 504 || q == 520 || q == 521 || q == 522 || q == 531){
+  } else if(q == 300 || q == 301 || q == 302 || q == 310 || q == 311 || q == 312 || q == 313 || q == 314 || q == 321){
     //vejrIcon5dage = regnIcon;
-    image(regnIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
+    image(solRegnIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
 
-  } else if(q == 511 || q == 600 || q == 601 || q == 602 || q == 611 || q == 612 || q ==  613 || q == 615 || q == 616 || q == 620 || q == 621 || q == 622){
-    //vejrIcon5dage = overskyetSneIcon;
-    image(overskyetSneIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
+  }else if(q == 500 || q == 501 || q == 502 || q == 503 || q == 504 || q == 520 || q == 521 || q == 522 || q == 531){
+    //vejrIcon5dage = StorRegnIcon;
+    image(solRegnIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
+
+  }else if(q == 511 || q == 600 || q == 601 || q == 602 || q == 611 || q == 612 || q ==  613 || q == 615 || q == 616 || q == 620 || q == 621 || q == 622){
+    //vejrIcon5dage = dagSneIcon;
+    image(dagSneIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
 
   } else if(q == 701 || q == 711 || q == 721 || q == 731 || q == 741 || q == 751 || q ==  761 || q == 762 || q == 771 || q == 781){
     image(tågeIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
@@ -760,7 +783,7 @@ function advarselFelt(){
 
   //Advarsel Billede
   imageMode(CORNER);
-  image(advarselIcon, advarselIconX, advarselBoksY, advarselIconWidth, advarselBoksHeight);
+  image(advarselIcon, advarselIconX-15, advarselBoksY-10, advarselIconWidth+50, advarselBoksHeight+20);
 
   //Advarsel text
   textAlign(CENTER, TOP);
