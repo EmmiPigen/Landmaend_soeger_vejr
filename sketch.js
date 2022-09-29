@@ -285,49 +285,53 @@ function infoBokse(){
 
 //Iconer for information for iDag
 function infoIconerIdag(){
-  vindIconIdagX = vejrInfoBoxX - 3;
-  vindIconIdagY = vejrInfoBoxY - 28;
-  vindIconIdagWidth = (vejrInfoBoxWidth / 4.5);
-  vindIconIdagHeight = (vejrInfoBoxHeight / 1.5);
+ //Vindicon
+ vindIconIdagX = vejrInfoBoxX + 20;
+ vindIconIdagY = vejrInfoBoxY;
+ vindIconIdagWidth = (vejrInfoBoxWidth / 2) / 4
+ vindIconIdagHeight = (vejrInfoBoxHeight / 3);
 
-  image(vindIcon, vindIconIdagX, vindIconIdagY, vindIconIdagWidth, vindIconIdagHeight);
+ image(vindIcon, vindIconIdagX, vindIconIdagY, vindIconIdagWidth, vindIconIdagHeight);
 
-  regnIconX = vejrInfoBoxX+20;
-  regnIconY = vejrInfoBoxY + (vejrInfoBoxHeight / 3) + 5;
-  regnIconWidth = (vejrInfoBoxWidth / 2) / 4;
-  regnIconHeight = (vejrInfoBoxHeight / 3) - 10;
+ //regnicon
+ regnIconX = vindIconIdagX;
+ regnIconY = vejrInfoBoxY + (vejrInfoBoxHeight / 3) + 5;
+ regnIconWidth = vindIconIdagWidth;
+ regnIconHeight = vindIconIdagHeight - 10;
 
-  image(regnMængdeIcon, regnIconX, regnIconY, regnIconWidth, regnIconHeight);
+ image(regnMængdeIcon, regnIconX, regnIconY, regnIconWidth, regnIconHeight);
 
-  UVIconX = vejrInfoBoxX + (vejrInfoBoxWidth / 2) + 20;
-  UVIconY = vejrInfoBoxY + 5;
-  UVIconWidth = (vejrInfoBoxWidth / 2) / 4;
-  UVIconHeight = (vejrInfoBoxHeight / 3) - 10;
+ //UVicon
+ UVIconX = vejrInfoBoxX + (vejrInfoBoxWidth / 2) + 20;
+ UVIconY = vindIconIdagY + 5;
+ UVIconWidth = vindIconIdagWidth;
+ UVIconHeight = vindIconIdagHeight - 10
 
-  image(UVIcon, UVIconX, UVIconY, UVIconWidth, UVIconHeight);
+ image(UVIcon, UVIconX, UVIconY, UVIconWidth, UVIconHeight);
 
-  synlighedIconX = UVIconX-25;
-  synlighedIconY = regnIconY-25;
-  synlighedIconWidth = UVIconWidth+45;
-  synlighedIconHeight =  regnIconHeight+45;
+ //Synlighedicon
+ synlighedIconX = UVIconX;
+ synlighedIconY = regnIconY;
+ synlighedIconWidth = UVIconWidth;
+ synlighedIconHeight = UVIconHeight;
 
-  image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
+ image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
 
-  solOpIconX = vejrInfoBoxX+20
-  solOpIconY = regnIconY + (vejrInfoBoxHeight / 3)
-  solOpIconWidth = (vejrInfoBoxWidth / 2) / 3.5
-  solOpIconHeight = (vejrInfoBoxHeight / 3) - 10;
+ //SolOpicon
+ solOpIconX = vindIconIdagX
+ solOpIconY = regnIconY + (vejrInfoBoxHeight / 3)
+ solOpIconWidth = (vejrInfoBoxWidth / 2) / 3.5
+ solOpIconHeight = (vejrInfoBoxHeight / 3) - 10;
 
-  image(solOpIcon, solOpIconX, solOpIconY, solOpIconWidth, solOpIconHeight);
-  
-  solNedIconX = UVIconX
-  solNedIconY = solOpIconY
-  solNedIconWidth = solOpIconWidth;
-  solNedIconHeight = solOpIconHeight;
-
-  image(solNedIcon, solNedIconX, solNedIconY, solNedIconWidth, solNedIconHeight);
-
+ image(solOpIcon, solOpIconX, solOpIconY, solOpIconWidth, solOpIconHeight);
  
+ //SolNedicon
+ solNedIconX = UVIconX
+ solNedIconY = solOpIconY
+ solNedIconWidth = solOpIconWidth;
+ solNedIconHeight = solOpIconHeight;
+
+ image(solNedIcon, solNedIconX, solNedIconY, solNedIconWidth, solNedIconHeight);
 }
 
 //Iconer for information for 5 dage
