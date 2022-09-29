@@ -309,18 +309,11 @@ function infoIconerIdag(){
 
  image(UVIcon, UVIconX, UVIconY, UVIconWidth, UVIconHeight);
 
-<<<<<<< Updated upstream
  //Synlighedicon
  synlighedIconX = UVIconX;
  synlighedIconY = regnIconY;
  synlighedIconWidth = UVIconWidth;
  synlighedIconHeight = UVIconHeight;
-=======
-  synlighedIconX = UVIconX-25;
-  synlighedIconY = regnIconY-25;
-  synlighedIconWidth = UVIconWidth + 30;
-  synlighedIconHeight =  regnIconHeight + 45;
->>>>>>> Stashed changes
 
  image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
 
