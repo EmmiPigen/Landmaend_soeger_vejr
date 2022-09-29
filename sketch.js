@@ -286,10 +286,10 @@ function infoBokse(){
 //Iconer for information for iDag
 function infoIconerIdag(){
  //Vindicon
- vindIconIdagX = vejrInfoBoxX + 20;
- vindIconIdagY = vejrInfoBoxY;
- vindIconIdagWidth = (vejrInfoBoxWidth / 2) / 4
- vindIconIdagHeight = (vejrInfoBoxHeight / 3);
+ vindIconIdagX = vejrInfoBoxX;
+ vindIconIdagY = vejrInfoBoxY - 15;
+ vindIconIdagWidth = (vejrInfoBoxWidth / 2) / 3
+ vindIconIdagHeight = (vejrInfoBoxHeight / 2);
 
  image(vindIcon, vindIconIdagX, vindIconIdagY, vindIconIdagWidth, vindIconIdagHeight);
 
@@ -312,8 +312,8 @@ function infoIconerIdag(){
  //Synlighedicon
  synlighedIconX = UVIconX;
  synlighedIconY = regnIconY;
- synlighedIconWidth = UVIconWidth;
- synlighedIconHeight = UVIconHeight;
+ synlighedIconWidth = UVIconWidth + 15;
+ synlighedIconHeight = UVIconHeight + 10;
 
  image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
 
