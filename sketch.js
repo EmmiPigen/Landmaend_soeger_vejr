@@ -295,33 +295,33 @@ function infoIconerIdag(){
 
  //regnicon
  regnIconX = vindIconIdagX;
- regnIconY = vejrInfoBoxY + (vejrInfoBoxHeight / 3) + 5;
- regnIconWidth = vindIconIdagWidth;
- regnIconHeight = vindIconIdagHeight - 10;
+ regnIconY = vejrInfoBoxY + (vejrInfoBoxHeight / 3);
+ regnIconWidth = vindIconIdagWidth - 5;
+ regnIconHeight = (vejrInfoBoxHeight / 3) - 5;
 
  image(regnMængdeIcon, regnIconX, regnIconY, regnIconWidth, regnIconHeight);
 
  //UVicon
  UVIconX = vejrInfoBoxX + (vejrInfoBoxWidth / 2) + 20;
- UVIconY = vindIconIdagY + 5;
- UVIconWidth = vindIconIdagWidth;
- UVIconHeight = vindIconIdagHeight - 10
+ UVIconY = vindIconIdagY + 20;
+ UVIconWidth = vindIconIdagWidth - 10;
+ UVIconHeight = (vejrInfoBoxHeight / 3) - 10;
 
  image(UVIcon, UVIconX, UVIconY, UVIconWidth, UVIconHeight);
 
  //Synlighedicon
- synlighedIconX = UVIconX;
- synlighedIconY = regnIconY;
- synlighedIconWidth = UVIconWidth + 15;
- synlighedIconHeight = UVIconHeight + 10;
+ synlighedIconX = UVIconX - 5;
+ synlighedIconY = regnIconY - 4;
+ synlighedIconWidth = UVIconWidth + 10;
+ synlighedIconHeight = UVIconHeight + 15;
 
  image(synlighedIcon, synlighedIconX, synlighedIconY, synlighedIconWidth, synlighedIconHeight);
 
  //SolOpicon
- solOpIconX = vindIconIdagX
+ solOpIconX = vindIconIdagX + 10
  solOpIconY = regnIconY + (vejrInfoBoxHeight / 3)
  solOpIconWidth = (vejrInfoBoxWidth / 2) / 3.5
- solOpIconHeight = (vejrInfoBoxHeight / 3) - 10;
+ solOpIconHeight = (vejrInfoBoxHeight / 3);
 
  image(solOpIcon, solOpIconX, solOpIconY, solOpIconWidth, solOpIconHeight);
  
