@@ -99,7 +99,7 @@ function preload(){
 }
 
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(window.innerWidth, window.innerHeight);
   DatoIDag();
   //console.log(iDag);
   //Søgefelt
