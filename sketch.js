@@ -132,7 +132,7 @@ function draw (){
     baggrund();
     infoBokse();
     søgeFelt();
-  //} else {
+  } else {
     baggrund();
     infoBokse();
     søgeFelt();
@@ -486,12 +486,19 @@ function tekst5Dage(){
     dato5DageX = (dageBlokWidth * o) + dageBlokWidth / 2;
     //ugedag navn
     ugeDag5Dage = ugeDage[iDag.getDay() + p];
-    //dato 5 dage. Når slutninen af måneden rammer vil der kunne genstarte fra 1 istedet for at forsætte over 28, 30 eller 31 afhænging af året
-    if(iDag.getMonth() ==  1){
-      if(iDag.getDate() >= 23){
-        dagDato5Dage = dato5Dage28[d + 2];
-      } else if (iDag.getDate < 23){
-        dagDato5Dage = iDag.getDate() + p}
+    //dato 5 dage. Når slutninen af måneden rammer vil der kunne genstarte fra 1 istedet for at forsætte over 28, 30 eller 31 afhænging af måneden
+    if(iDag.getMonth() ==  1){ //Februar 
+      if(Number.isInteger(iDag.getFullYear() / 4) == false ){//Hvis året divideret med 4 giver et resultat med decimaltal(ikke skudår)
+        if(iDag.getDate() >= 23){
+          dagDato5Dage = dato5Dage28[d + 2];
+       } else if (iDag.getDate < 23){
+         dagDato5Dage = iDag.getDate() + p}
+      } else if(Number.isInteger(iDag.getFullYear() / 4) == true){//Hvis året divideret med 4 giver et resultat uden decimaltal(skudår)
+         if(iDag.getDate() >= 24){
+          dagDato5Dage = dato5Dage29[d + 2];
+       } else if (iDag.getDate < 23){
+          dagDato5Dage = iDag.getDate() + p}
+       }
     } else if(iDag.getMonth() ==  0 || iDag.getMonth() ==  2 || iDag.getMonth() ==  4 || iDag.getMonth() ==  6 || iDag.getMonth() ==  7 || iDag.getMonth() ==  9 || iDag.getMonth() ==  11){
       if(iDag.getDate() >= 26){
         dagDato5Dage = dato5Dage31[d - 1];
