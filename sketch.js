@@ -421,7 +421,7 @@ function tekst(){
   textAlign(RIGHT, BACKSPACE)
   textSize((hovedBlokHeight / 2.7) / 1.5);
   tempMinMaxX = vejrInfoBoxX - 10
-  text(temperaturMinIdag + '°/' + temperaturMaxIdag + '°', tempMinMaxX, temperaturY - 6);
+  text(temperaturMaxIdag + '°/' + temperaturMinIdag + '°', tempMinMaxX, temperaturY - 6);
   fill(0)
 
   //Text indstillinger for teksten i Infoboxen
@@ -482,58 +482,67 @@ function tekst5Dage(){
   let p = 1;
   let d = iDag.getDate() - 24;
   let k = 0;
-  let æ = 1
   for(let v = 0; v < 5; v++){
     dato5DageX = (dageBlokWidth * o) + dageBlokWidth / 2;
-    ugeDag5Dage = ugeDage[iDag.getDay() + æ];
-    if(iDag.getMonth() ==  1){
-      if(iDag.getDate() >= 23){
-        dagDato5Dage = dato5Dage28[d + 2];
-      } else{
-        dagDato5Dage = iDag.getDate() + æ
-      }
-    }else if(iDag.getMonth() ==  0 || iDag.getMonth() ==  2 || iDag.getMonth() ==  4 || iDag.getMonth() ==  6 || iDag.getMonth() ==  7 || iDag.getMonth() ==  9 || iDag.getMonth() ==  11){
+    //ugedag navn
+    ugeDag5Dage = ugeDage[iDag.getDay() + p];
+    //dato 5 dage. Når slutninen af måneden rammer vil der kunne genstarte fra 1 istedet for at forsætte over 28, 30 eller 31 afhænging af måneden
+    if(iDag.getMonth() ==  1){ //Februar 
+      if(Number.isInteger(iDag.getFullYear() / 4) == false ){//Hvis året divideret med 4 giver et resultat med decimaltal(ikke skudår)
+        if(iDag.getDate() >= 23){
+          dagDato5Dage = dato5Dage28[d + 2];
+       } else if (iDag.getDate < 23){
+         dagDato5Dage = iDag.getDate() + p}
+      } else if(Number.isInteger(iDag.getFullYear() / 4) == true){//Hvis året divideret med 4 giver et resultat uden decimaltal(skudår)
+         if(iDag.getDate() >= 24){
+          dagDato5Dage = dato5Dage29[d + 2];
+       } else if (iDag.getDate < 23){
+          dagDato5Dage = iDag.getDate() + p}
+       }
+    } else if(iDag.getMonth() ==  0 || iDag.getMonth() ==  2 || iDag.getMonth() ==  4 || iDag.getMonth() ==  6 || iDag.getMonth() ==  7 || iDag.getMonth() ==  9 || iDag.getMonth() ==  11){
       if(iDag.getDate() >= 26){
         dagDato5Dage = dato5Dage31[d - 1];
       } else if (iDag.getDate < 26){
-        dagDato5Dage = iDag.getDate() + æ
-      }
-    }else if(iDag.getMonth() ==  3 || iDag.getMonth() ==  5 || iDag.getMonth() ==  8 || iDag.getMonth() ==  10){
+        dagDato5Dage = iDag.getDate() + p}
+    } else if(iDag.getMonth() ==  3 || iDag.getMonth() ==  5 || iDag.getMonth() ==  8 || iDag.getMonth() ==  10){
       if(iDag.getDate() >= 25){
         dagDato5Dage = dato5Dage30[d];
       } else if (iDag.getDate < 25){
-        dagDato5Dage = iDag.getDate() + æ
-      }
+        dagDato5Dage = iDag.getDate() + p}
     }
 
+    //Tekst for ugedag og dato for 5 dage
     textSize(dageBlokHeight / 5);
     textAlign(CENTER, TOP);
     text(ugeDag5Dage + ' d. ' + dagDato5Dage, dato5DageX, dato5DageY);
 
+    //Tekst for temperatur for 5 dage
     textSize(dageBlokHeight / 5);
     textAlign(RIGHT, BASELINE);
     tempMinMax5dageX = (dageBlokWidth * o) + (dageBlokWidth / 2) + 7;
-    text(temperaturMin5Dage[k] + '°/' + temperaturMax5Dage[k] + '°', tempMinMax5dageX, tempMinMax5dageY);
+    text(temperaturMax5Dage[k] + '°/' + temperaturMin5Dage[k] + '°', tempMinMax5dageX, tempMinMax5dageY);
     
     textSize(dageBlokHeightVejrdata / 5.5)
 
+    //Tekst for regn for 5 dage
     regn5DageX = tempMinMax5dageX;
     if(regn5Dage[k] == undefined){
       regnMængde5Dage = '0';
     } else {
-      regnMængde5Dage = regn5Dage[k];
-    }
+      regnMængde5Dage = regn5Dage[k]; }
     text(regnMængde5Dage + 'mm', regn5DageX, regn5DageY);
-
+ 
+    //funktion for ord for vindretning for 5 dage
     g = vindRetning5Dage[k];
     vindRetCompass5Dage();
-
+    //Tekst for vind for 5 dage
     vind5DageX = tempMinMax5dageX;
     text(vindRetning5DageOrd + vindFart5Dage[k] + 'm/s', vind5DageX, vind5DageY);
-
+    
+    //Tekst for sol op for 5 dage
     solOp5DageX = (dageBlokWidth * p) - 15;
     text(solOp5Dage[k], solOp5DageX, solOp5DageY);
-
+    //Tekst for sol ned for 5 dage
     solNed5DageX = (dageBlokWidth * p) - 15;
     text(solNed5Dage[k], solNed5DageX, solNed5DageY);
 
@@ -541,12 +550,12 @@ function tekst5Dage(){
     o++
     p++
     k++
-    æ++
   }
 }
 
 //Tekst for Jord Data
 function tekstJord(){
+  //Tekst variabler for overskrifter
   textAlign(CENTER, TOP);
   textSize((jordBoxHeight - 2 * 5) / 5);
 
@@ -555,17 +564,24 @@ function tekstJord(){
   jordTempY = jordBoxY
   halvJordBox = jordBoxWidth / 2
   text('Jordtemperatur(°)', jordTempX, jordTempY);
-  
-  //jordTemp Data
+
+  //jordfugtighed titel
+  jordFugtX = jordBoxX + (jordBoxWidth / 4 * 3)
+  jordFugtY = jordBoxY
+  text('Jordfugtighed(m³/m³)', jordFugtX, jordFugtY);
+
+  //jordTemp Data //Y-værdi
   jordTemp6cmY = jordBoxY + jordBoxHeight / 5;
   jordTemp18cmY = jordTemp6cmY + jordBoxHeight / 5;
   jordTemp54cmY = jordTemp18cmY + jordBoxHeight / 5;
   jordTid = jordTemp54cmY + jordBoxHeight / 5 + 4;
+
+  textSize((jordBoxHeight - 2 * 5) / 6);
+  textAlign(CENTER, TOP);
   let j = 0.5;
   let l = 0
   for(let s = 0; s < 6; s++) {
-    textSize((jordBoxHeight - 2 * 5) / 6);
-    textAlign(CENTER, TOP);
+    //Jordtemperatur tekst
     jordTempXcmX = jordBoxX + halvJordBox / 14 * j * 2;
     text(jordTemperatur6cm[l] + '°', jordTempXcmX, jordTemp6cmY);
     text(jordTemperatur18cm[l] + '°', jordTempXcmX, jordTemp18cmY);
@@ -574,7 +590,7 @@ function tekstJord(){
     //Time tal under tabellen
     let timerJordTemp = l.toString()
     if(timerJordTemp.length == 2) {
-    text('00:' + timerJordTemp, jordTempXcmX, jordTid);
+      text('00:' + timerJordTemp, jordTempXcmX, jordTid);
     } else if(timerJordTemp.length == 1) {
       text('00:0' + timerJordTemp, jordTempXcmX, jordTid);
     }
@@ -582,45 +598,43 @@ function tekstJord(){
     j++
     l = l + 4
   }
+
+  //Tekst for tabel navne for jord temperatur
   textSize((jordBoxHeight - 2 * 5) / 6);
   text('6cm', jordTempXcmX + halvJordBox / 14 * 2, jordTemp6cmY);
   text('18cm', jordTempXcmX + halvJordBox / 14 * 2, jordTemp18cmY);
   text('54cm', jordTempXcmX + halvJordBox / 14 * 2, jordTemp54cmY);
 
-  textAlign(CENTER, TOP);
-  textSize((jordBoxHeight - 2 * 5) / 5);
-
-  //jordfugtighed titel
-  jordFugtX = jordBoxX + (jordBoxWidth / 4 * 3)
-  jordFugtY = jordBoxY
-  text('Jordfugtighed(m³/m³)', jordFugtX, jordFugtY);
-
+  //Jord fugt data //Y-værdier
   jordFugt1_3cmY = jordBoxY + jordBoxHeight / 6;
   jordFugt3_9cmY = jordFugt1_3cmY + jordBoxHeight / 6;
   jordFugt9_27cmY = jordFugt3_9cmY + jordBoxHeight / 6;
   jordFugt27_81cmY = jordFugt9_27cmY + jordBoxHeight / 6;
 
+  textSize((jordBoxHeight - 2 * 5) / 7);
   let h = 1.5;
-  let m = 0
+  l = 0
   for(let d = 0; d < 6; d++) {
-    textSize((jordBoxHeight - 2 * 5) / 7);
-    textAlign(CENTER, TOP);
+    //Jordfugtihed tekst
     jordFugtXcmX = jordBoxX + ((halvJordBox / 14 * h * 2) + halvJordBox);
-    text(jordFugtighed1_3cm[m], jordFugtXcmX, jordFugt1_3cmY);
-    text(jordFugtighed3_9cm[m], jordFugtXcmX, jordFugt3_9cmY);
-    text(jordFugtighed9_27cm[m], jordFugtXcmX, jordFugt9_27cmY);
-    text(jordFugtighed27_81cm[m], jordFugtXcmX, jordFugt27_81cmY);
-    textSize((jordBoxHeight - 2 * 5) / 6);
+    text(jordFugtighed1_3cm[l], jordFugtXcmX, jordFugt1_3cmY);
+    text(jordFugtighed3_9cm[l], jordFugtXcmX, jordFugt3_9cmY);
+    text(jordFugtighed9_27cm[l], jordFugtXcmX, jordFugt9_27cmY);
+    text(jordFugtighed27_81cm[l], jordFugtXcmX, jordFugt27_81cmY);
+
     //Timetal under tabellen
-    let timerJordFugt = m.toString()
+    textSize((jordBoxHeight - 2 * 5) / 6);
+    let timerJordFugt = l.toString()
     if(timerJordFugt.length == 2) {
     text('00:' + timerJordFugt, jordFugtXcmX, jordTid);
     } else if(timerJordFugt.length == 1) {
       text('00:0' + timerJordFugt, jordFugtXcmX, jordTid);
     }
     h++
-    m = m + 4
+    l = l + 4
   }
+
+  //Tekst for tabel navne for jord fugtighed  
   textSize((jordBoxHeight - 2 * 5) / 7);
   jordFugtOrdX = jordBoxX + ((halvJordBox / 14) + halvJordBox)
   text('1-3cm', jordFugtOrdX, jordFugt1_3cmY);
@@ -628,53 +642,54 @@ function tekstJord(){
   text('9-27cm', jordFugtOrdX, jordFugt9_27cmY);
   text('27-81cm', jordFugtOrdX, jordFugt27_81cmY);
   
+  //Linjer omkring tallene
   strokeCap(ROUND);
   stroke(96, 64, 32);
   strokeWeight(4);
-  line(jordFugtOrdX + (halvJordBox / 14), jordBoxY + jordBoxHeight / 6, jordFugtOrdX + (halvJordBox / 14), jordBoxY + jordBoxHeight - jordBoxHeight / 6); 
+  line(jordFugtOrdX + (halvJordBox / 14), jordBoxY + jordBoxHeight / 6, jordFugtOrdX + (halvJordBox / 14), jordBoxY + jordBoxHeight - jordBoxHeight / 6); //Temperatur
   
-  line(jordFugtOrdX - (halvJordBox / 14 * 3), jordBoxY + jordBoxHeight / 6, jordFugtOrdX - (halvJordBox / 14 * 3), jordBoxY + jordBoxHeight - jordBoxHeight / 6)
+  line(jordFugtOrdX - (halvJordBox / 14 * 3), jordBoxY + jordBoxHeight / 6, jordFugtOrdX - (halvJordBox / 14 * 3), jordBoxY + jordBoxHeight - jordBoxHeight / 6); //Fugtighed
   noStroke(); 
 }
 
 //ID for vejricon Idag
 function iconID(){
-  if(weatherID == 200 || weatherID == 201 || weatherID == 202 || weatherID == 210 || weatherID == 211 || weatherID == 212 || weatherID == 221 || weatherID == 230 || weatherID == 231 || weatherID == 232){
+  if(weatherID == 200 || weatherID == 201 || weatherID == 202 || weatherID == 210 || weatherID == 211 || weatherID == 212 || weatherID == 221 || weatherID == 230 || weatherID == 231 || weatherID == 232){ //Tordenvejr
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = tordenIcon;
     } else {
       vejrIconIdag = måneTordenIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 300 || weatherID == 301 || weatherID == 302 || weatherID == 310 || weatherID == 311 || weatherID == 312 || weatherID == 313 || weatherID == 314 || weatherID == 321 || weatherID == 500 || weatherID == 501 || weatherID == 502 || weatherID == 503 || weatherID == 504 || weatherID == 520 || weatherID == 521 || weatherID == 522 || weatherID == 531){
+  } else if(weatherID == 300 || weatherID == 301 || weatherID == 302 || weatherID == 310 || weatherID == 311 || weatherID == 312 || weatherID == 313 || weatherID == 314 || weatherID == 321 || weatherID == 500 || weatherID == 501 || weatherID == 502 || weatherID == 503 || weatherID == 504 || weatherID == 520 || weatherID == 521 || weatherID == 522 || weatherID == 531){ //Regnvejr
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = regnIcon;
     } else {
       vejrIconIdag = måneRegnIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 511 || weatherID == 600 || weatherID == 601 || weatherID == 602 || weatherID == 611 || weatherID == 612 || weatherID ==  613 || weatherID == 615 || weatherID == 616 || weatherID == 620 || weatherID == 621 || weatherID == 622){
+  } else if(weatherID == 511 || weatherID == 600 || weatherID == 601 || weatherID == 602 || weatherID == 611 || weatherID == 612 || weatherID ==  613 || weatherID == 615 || weatherID == 616 || weatherID == 620 || weatherID == 621 || weatherID == 622){ //Snevejr
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = overskyetSneIcon;
     } else {
       vejrIconIdag = måneSneIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 701 || weatherID == 711 || weatherID == 721 || weatherID == 731 || weatherID == 741 || weatherID == 751 || weatherID ==  761 || weatherID == 762 || weatherID == 771 || weatherID == 781){
+  } else if(weatherID == 701 || weatherID == 711 || weatherID == 721 || weatherID == 731 || weatherID == 741 || weatherID == 751 || weatherID ==  761 || weatherID == 762 || weatherID == 771 || weatherID == 781){ //Tåge
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = tågeIcon;
     } else {
       vejrIconIdag = måneTågeIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID  == 800){
+  } else if(weatherID  == 800){ //Solskin
     if(tidNu > solOp && tidNu < solNed){
     vejrIconIdag = solIcon;
     } else {
     vejrIconIdag = måneIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 801 || weatherID == 802 || weatherID == 803 || weatherID == 804){
+  } else if(weatherID == 801 || weatherID == 802 || weatherID == 803 || weatherID == 804){ //Overskyet
     if(tidNu > solOp && tidNu < solNed){
     vejrIconIdag = solOverskyetIcon;
     } else {
@@ -686,56 +701,45 @@ function iconID(){
 
 //Vejricon billede for idag
 function iconBilledeIdag(){
-  imageMode(CENTER);
+  //variabler for vejricon
   iconIdagX = kantBoxWidth + (hovedBlokWidth / 4);
   iconIdagY = hovedBlokHeight / 2 + 20;
   iconIdagSize = hovedBlokWidth / 5;
 
+  imageMode(CENTER);
   image(vejrIconIdag, iconIdagX, iconIdagY, iconIdagSize, iconIdagSize);
 }
 
 //Vejricon billedevariabler for 5 dage
 function iconBillede5Dage(){
+  //Variabler for vejricon for 5 dage 
   icon5DageY = tempMinMax5dageY - 18;
   icon5DageWidth = (dageBlokWidth / 2) / 2;
   icon5DageHeight = icon5DageWidth
   let i = 0;
-  let æ = 0;
- imageMode(CENTER);
   for(let w = 0; w < 5; w++){
     q = weatherID5Dage[i];
-    icon5DageX = (dageBlokWidth / 4 * 3) + (dageBlokWidth * æ);
+    icon5DageX = (dageBlokWidth / 4 * 3) + (dageBlokWidth * i);
     iconID5Dage();
-   //console.log(q)
     i++
-    æ++
   }
 }
 
 //Vejricon for 5 Dage
 function iconID5Dage(){
-  if(q == 200 || q == 201 || q == 202 || q == 210 || q == 211 || q == 212 || q == 221 || q == 230 || q == 231 || q == 232){
+ imageMode(CENTER);
+  if(q == 200 || q == 201 || q == 202 || q == 210 || q == 211 || q == 212 || q == 221 || q == 230 || q == 231 || q == 232){ //Todenvejr
     image(tordenIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-    //vejrIcon5dage = tordenIcon;
-
-  } else if(q == 300 || q == 301 || q == 302 || q == 310 || q == 311 || q == 312 || q == 313 || q == 314 || q == 321 || q == 500 || q == 501 || q == 502 || q == 503 || q == 504 || q == 520 || q == 521 || q == 522 || q == 531){
-    //vejrIcon5dage = regnIcon;
+  } else if(q == 300 || q == 301 || q == 302 || q == 310 || q == 311 || q == 312 || q == 313 || q == 314 || q == 321 || q == 500 || q == 501 || q == 502 || q == 503 || q == 504 || q == 520 || q == 521 || q == 522 || q == 531){ //Regnvejr
     image(regnIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-
-  } else if(q == 511 || q == 600 || q == 601 || q == 602 || q == 611 || q == 612 || q ==  613 || q == 615 || q == 616 || q == 620 || q == 621 || q == 622){
-    //vejrIcon5dage = overskyetSneIcon;
+  } else if(q == 511 || q == 600 || q == 601 || q == 602 || q == 611 || q == 612 || q ==  613 || q == 615 || q == 616 || q == 620 || q == 621 || q == 622){ //Snevejr
     image(overskyetSneIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-
-  } else if(q == 701 || q == 711 || q == 721 || q == 731 || q == 741 || q == 751 || q ==  761 || q == 762 || q == 771 || q == 781){
+  } else if(q == 701 || q == 711 || q == 721 || q == 731 || q == 741 || q == 751 || q ==  761 || q == 762 || q == 771 || q == 781){ //Tåge
     image(tågeIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-
-  } else if(q  == 800){
+  } else if(q  == 800){ //Solskin
     image(solIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-    //vejrIcon5dage = solIcon;
-
-  } else if(q == 801 || q == 802 || q == 803 || q == 804){
+  } else if(q == 801 || q == 802 || q == 803 || q == 804){ //Overskyet
     image(solOverskyetIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-    //vejrIcon5dage = solOverskyetIcon;
   }
 }
 
@@ -774,16 +778,18 @@ function advarselFelt(){
 
 //Felt til at søge efter by
 function søgeFelt(){
-    //Søge felt
+    //Søge felt variabler
     søgBoksX = 0 + (width / 200 * 3);
     søgBoksY = (headerHeight / 2) - (headerHeight / 3);
     søgBoksWidth = width / 4.5;
     søgBoksHeight = headerHeight - (headerHeight / 3);
-  
+
+    //Søgefelt attributes
     søgBy.position(søgBoksX, søgBoksY);
     søgBy.size(søgBoksWidth, søgBoksHeight);
     søgBy.mousePressed(søg);
 
+    //Søgeicon
     søgIconX = 0;
     søgIconY = 0 + 5;
     søgIconWidth = søgBoksX
@@ -791,7 +797,7 @@ function søgeFelt(){
     image(søgIcon, søgIconX, søgIconY, søgIconWidth, søgIconHeight);
 }
 
-//Clear al text ved tryk
+//Clear al text ved tryk på søgefelt
 function søg(){
   søgBy.value("")
 }
@@ -858,13 +864,12 @@ function showPosition(position){
   lat = position.coords.latitude;
   long = position.coords.longitude;
 
-  //console.log(lat, long);
   positionNavn();
 }
 
 //Koordinater for bruger(usuccessful)
 function showError(error){
-  //Hvis lokalitet ikke kan findes skal den vise data for københavn istedet
+  //Hvis lokalitet ikke kan findes skal den sætte koordinater til københavn istedet
   switch(error.code) {
     case error.PERMISSION_DENIED:
       lat = 55.6867243 
@@ -891,7 +896,7 @@ function showError(error){
 
 //Vejrdata Api 
 async function getVejrData(){
-  //Dato i ISO uden timer
+  //Dato i ISO format for jordata api
   let d = new Date();
   let year = d.getFullYear();
   let month = d.getMonth() + 1;
@@ -915,11 +920,12 @@ async function getVejrData(){
   //console.log(jordDataJson);
 
   //variabler for idag
-  tidNu = (vejrDataJson.current.dt + vejrDataJson.timezone_offset) * 1000;
+  tidNu = (vejrDataJson.current.dt + vejrDataJson.timezone_offset) * 1000; //Tiden nu i UNIX til at sammenligne med sol op og ned
   temperaturMaxIdag = round(vejrDataJson.daily[0].temp.max); //Temp max
   temperaturMinIdag = round(vejrDataJson.daily[0].temp.min); //Temp min
   vindFartIdag = vejrDataJson.current.wind_speed; //Vind hastighed
   vindRetningIdag = vejrDataJson.current.wind_deg; //Vind retning
+  vindRetCompassIdag(); //Funktion til at for vindretning i ord
   regnIdag = vejrDataJson.daily[0].rain; //Regn
   solOp = (vejrDataJson.daily[0].sunrise + vejrDataJson.timezone_offset) * 1000;
   solOpIdag = new Date(solOp).toISOString().slice(11, 16); //sol op
@@ -928,15 +934,14 @@ async function getVejrData(){
   UV = round(vejrDataJson.current.uvi); //UV
   synlighed = vejrDataJson.current.visibility / 1000; //Synlighed
   temperaturNu = round(vejrDataJson.current.temp); //Temperatur nu
-  advarselCheck = vejrDataJson.alerts
+  weatherID = vejrDataJson.current.weather[0].id; //VejrId for idag for vejricon
+  //Advarsel om ekstemt vejr
+  advarselCheck = vejrDataJson.alerts 
   if(advarselCheck == undefined){
     advarsel = undefined
   } else {
     advarsel = vejrDataJson.alerts[0].event
   }
-  weatherID = vejrDataJson.current.weather[0].id
-  vindRetCompassIdag();
-  
 
   //Jordtemperatur 
   jordTemperatur6cm = jordDataJson.hourly.soil_temperature_6cm;
@@ -948,6 +953,7 @@ async function getVejrData(){
   jordFugtighed9_27cm = jordDataJson.hourly.soil_moisture_9_27cm;
   jordFugtighed27_81cm = jordDataJson.hourly.soil_moisture_27_81cm;
   
+  //Resetter array for 5 dages data
   data5DageClear()
   //Variabler for 5 dage
   let b = 1;
@@ -956,12 +962,12 @@ async function getVejrData(){
     temperaturMin5Dage.push(round(vejrDataJson.daily[b].temp.min)); //Min temp 5 dage
     solOp5DageUNIX.push((vejrDataJson.daily[b].sunrise + vejrDataJson.timezone_offset) * 1000); //Sol op i UNIX 5 dage
     solNed5DageUNIX.push((vejrDataJson.daily[b].sunset + vejrDataJson.timezone_offset) * 1000);//Sol ned i UNIX 5 dage
+    solOp5Dage.push(new Date(solOp5DageUNIX[b - 1]).toISOString().slice(11,16)); //Sol op i timer og minutter
+    solNed5Dage.push(new Date(solNed5DageUNIX[b - 1]).toISOString().slice(11,16)); //sol ned i timer og minutter
     regn5Dage.push(vejrDataJson.daily[b].rain); //Regn 5 dage
     vindFart5Dage.push(round(vejrDataJson.daily[b].wind_speed, 1));//vind fart 5 dage
     vindRetning5Dage.push(vejrDataJson.daily[b].wind_deg);//Vind retning 5 dage
-    solOp5Dage.push(new Date(solOp5DageUNIX[b - 1]).toISOString().slice(11,16)); //Sol op i timer og minutter
-    solNed5Dage.push(new Date(solNed5DageUNIX[b - 1]).toISOString().slice(11,16)); //sol ned i timer og minutter
-    weatherID5Dage.push(vejrDataJson.daily[b].weather[0].id);
+        weatherID5Dage.push(vejrDataJson.daily[b].weather[0].id); //vejrid for icon for 5 dage
     b++
   }
   //printData()
@@ -969,6 +975,7 @@ async function getVejrData(){
 
 //Koordinater ud fra søgning
 async function geoLokalitet(){
+  //Geolocation api
   geolok = 'https://eu1.locationiq.com/v1/search?key=pk.77fb17b877b39718edb9fbdc5047e6c3&q=' + byKode + '&format=json&accept-language=native'
   //console.log(geolok)
   
@@ -979,15 +986,12 @@ async function geoLokalitet(){
   long = geoLokJson[0].lon
   //console.log(lat, long)
   
-  //data5DageClear()
   positionNavn();
-  //tidszone();
-  //getVejrData();
 }
 
 //Navn ud fra koordinater
 async function positionNavn(){
-  //Position 
+  //Position api
   lokalitet ='https://eu1.locationiq.com/v1/reverse?key=pk.77fb17b877b39718edb9fbdc5047e6c3&lat=' + lat + '&lon=' + long +'&format=json&accept-language=native&normalizeaddress=1'
   //console.log(lokalitet);
 
@@ -1000,11 +1004,11 @@ async function positionNavn(){
   landLok =  lokalitetJson.address.country;
 
   tidszone();
-  //getVejrData();
 }
 
 //Tidszone ud fra koordinater
 async function tidszone(){
+  //tidzone api
   tidsZone = 'https://us1.locationiq.com/v1/timezone?key=pk.77fb17b877b39718edb9fbdc5047e6c3&lat=' + lat + '&lon=' + long + '&format=json';
   //console.log(tidsZone);
 
@@ -1012,14 +1016,15 @@ async function tidszone(){
   tidzoneJson = await ResponseTidzone.json();
   //console.log(tidzoneJson);
 
+  //Fixer fejl med jordapi når tidzonene er Grønland ved at erstatte den med en anden tidzone med samme tidsforskelle
   tidzoneNavn = tidzoneJson.timezone.name;
   if(tidzoneNavn == 'America/Nuuk'){
-    tidzoneNavn = 'America/Miquelon'
+    tidzoneNavn = 'America/Miquelon' 
   }
   getVejrData();
 }
 
-//Ved søgning skal data i alle 5 dages array slettes så nyt kan tilføjes
+//Ved søgning efter en ny by skal data i alle 5 dages array slettes så nyt kan tilføjes fra 0 igen
 function data5DageClear(){
   temperaturMax5Dage.splice(0, 5); //Max temp 5dage
   temperaturMin5Dage.splice(0, 5); //Min temp 5 dage
@@ -1033,7 +1038,7 @@ function data5DageClear(){
   weatherID5Dage.splice(0, 5);
 }
 
-//Console.log Datapunkter
+//Console.log Datapunkter 
 function printData(){
   //Idag
   console.log('Temperatur nu:', temperaturNu + '°');
