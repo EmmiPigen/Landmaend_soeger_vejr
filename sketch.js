@@ -683,7 +683,7 @@ function iconID(){
     if(tidNu > solOp && tidNu < solNed){
       vejrIconIdag = regnIconDag;
     } else {
-      vejrIconIdag = RegnIconNat;
+      vejrIconIdag = regnIconNat;
     }
     iconBilledeIdag();
   } else if(weatherID == 511 || weatherID == 600 || weatherID == 601 || weatherID == 602 || weatherID == 611 || weatherID == 612 || weatherID ==  613 || weatherID == 615 || weatherID == 616 || weatherID == 620 || weatherID == 621 || weatherID == 622){ //Snevejr
