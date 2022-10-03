@@ -622,11 +622,11 @@ function tekstJord(){
   jordFugt9_27cmY = jordFugt3_9cmY + jordBoxHeight / 6;
   jordFugt27_81cmY = jordFugt9_27cmY + jordBoxHeight / 6;
 
-  textSize((jordBoxHeight - 2 * 5) / 7);
   let h = 1.5;
   l = 0
   for(let d = 0; d < 6; d++) {
     //Jordfugtihed tekst
+    textSize((jordBoxHeight - 2 * 5) / 7);
     jordFugtXcmX = jordBoxX + ((halvJordBox / 14 * h * 2) + halvJordBox);
     text(jordFugtighed1_3cm[l], jordFugtXcmX, jordFugt1_3cmY);
     text(jordFugtighed3_9cm[l], jordFugtXcmX, jordFugt3_9cmY);
