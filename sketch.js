@@ -111,7 +111,7 @@ function preload(){
 function setup(){
   createCanvas(window.innerWidth, window.innerHeight);
   DatoIDag();
-  console.log(iDag);
+  //console.log(iDag);
   //Søgefelt
   søgBy = createInput("Søg", 'search');
   //Datofelt for idag
