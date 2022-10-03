@@ -9,6 +9,11 @@ const iDag = new Date();
 let lat;
 let long; 
 let tidzoneNavn;
+let monthText;
+let dateText;
+let month;
+let date;
+let year
 
 let søgBy;
 let byLok;
@@ -68,27 +73,28 @@ function preload(){
   
   //nat iconer
   måneIcon = loadImage("Photos/Iconer/clear sky (nat).png");
-  måneRegnIcon = loadImage("Photos/Iconer/rain (nat).png");
+  småRegnIconNat = loadImage("Photos/Iconer/rain (nat).png");
   måneTordenIcon = loadImage("Photos/Iconer/thunderstorm (nat).png");
   måneTågeIcon = loadImage("Photos/Iconer/mist (nat).png");
   TågeIconNat = loadImage("Photos/Iconer/mist (nat).png");
-
-  //overskyet uden måne eller sol
-  overskyetIcon = loadImage("Photos/Iconer/scattered clouds (dag).png");
-  overskyetIconNat = loadImage("Photos/Iconer/scattered clouds (nat).png");
-  overskyetSneIcon = loadImage("Photos/Iconer/snow (dag).png");
+  måneOverskyetIcon = loadImage("Photos/Iconer/few clouds (nat).png");
   måneSneIcon = loadImage("Photos/Iconer/snow (nat).png");
-  regnIconNat = loadImage("Photos/Iconer/rain (nat).png");
-  regnIcon = loadImage("Photos/Iconer/shower rain (dag).png");
   regnIconNat = loadImage("Photos/Iconer/shower rain (nat).png");
+  overskyetIconNat = loadImage("Photos/Iconer/scattered clouds (nat).png");
+
+  //overskyet
+  overskyetIconDag = loadImage("Photos/Iconer/scattered clouds (dag).png");
+  overskyetSneIcon = loadImage("Photos/Iconer/snow (dag).png");
   
   //sol iconer
-  solRegnIcon = loadImage("Photos/Iconer/rain (dag).png");
+  småRegnIconDag = loadImage("Photos/Iconer/rain (dag).png");
   solOverskyetIcon = loadImage("Photos/Iconer/few clouds (dag).png");
   solIcon = loadImage("Photos/Iconer/clear sky (dag).png");
   TågeIcondag = loadImage("Photos/Iconer/mist (dag).png");
   tågeIcon = loadImage("Photos/Iconer/mist (dag).png");
   tordenIcon = loadImage("Photos/Iconer/thunderstorm (dag).png");
+  regnIconDag = loadImage("Photos/Iconer/shower rain (dag).png");
+
 
   //InformationIconer
   søgIcon = loadImage("Photos/Iconer/SøgIcon.svg");
@@ -105,7 +111,7 @@ function preload(){
 function setup(){
   createCanvas(window.innerWidth, window.innerHeight);
   DatoIDag();
-  //console.log(iDag);
+  console.log(iDag);
   //Søgefelt
   søgBy = createInput("Søg", 'search');
   //Datofelt for idag
@@ -495,23 +501,24 @@ function tekst5Dage(){
       if(Number.isInteger(iDag.getFullYear() / 4) == false ){//Hvis året divideret med 4 giver et resultat med decimaltal(ikke skudår)
         if(iDag.getDate() >= 23){
           dagDato5Dage = dato5Dage28[d + 2];
-       } else if (iDag.getDate < 23){
+       } else if (iDag.getDate() < 23){
          dagDato5Dage = iDag.getDate() + p}
       } else if(Number.isInteger(iDag.getFullYear() / 4) == true){//Hvis året divideret med 4 giver et resultat uden decimaltal(skudår)
          if(iDag.getDate() >= 24){
           dagDato5Dage = dato5Dage29[d + 1];
-       } else if (iDag.getDate < 23){
+       } else if (iDag.getDate() < 23){
           dagDato5Dage = iDag.getDate() + p}
        }
     } else if(iDag.getMonth() ==  0 || iDag.getMonth() ==  2 || iDag.getMonth() ==  4 || iDag.getMonth() ==  6 || iDag.getMonth() ==  7 || iDag.getMonth() ==  9 || iDag.getMonth() ==  11){
       if(iDag.getDate() >= 26){
         dagDato5Dage = dato5Dage31[d - 1];
-      } else if (iDag.getDate < 26){
-        dagDato5Dage = iDag.getDate() + p}
+      } else if (iDag.getDate() < 26){
+        dagDato5Dage = iDag.getDate() + p
+      }
     } else if(iDag.getMonth() ==  3 || iDag.getMonth() ==  5 || iDag.getMonth() ==  8 || iDag.getMonth() ==  10){
       if(iDag.getDate() >= 25){
         dagDato5Dage = dato5Dage30[d];
-      } else if (iDag.getDate < 25){
+      } else if (iDag.getDate() < 25){
         dagDato5Dage = iDag.getDate() + p}
     }
 
@@ -665,11 +672,18 @@ function iconID(){
       vejrIconIdag = måneTordenIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 300 || weatherID == 301 || weatherID == 302 || weatherID == 310 || weatherID == 311 || weatherID == 312 || weatherID == 313 || weatherID == 314 || weatherID == 321 || weatherID == 500 || weatherID == 501 || weatherID == 502 || weatherID == 503 || weatherID == 504 || weatherID == 520 || weatherID == 521 || weatherID == 522 || weatherID == 531){ //Regnvejr
+  } else if(weatherID == 300 || weatherID == 301 || weatherID == 302 || weatherID == 310 || weatherID == 311 || weatherID == 312 || weatherID == 313 || weatherID == 314 || weatherID == 321 ){ //småregnvejr
     if(tidNu > solOp && tidNu < solNed){
-      vejrIconIdag = regnIcon;
+      vejrIconIdag = småRegnIconDag;
     } else {
-      vejrIconIdag = måneRegnIcon;
+      vejrIconIdag = småRegnIconNat;
+    }
+    iconBilledeIdag();
+  } else if(weatherID == 500 || weatherID == 501 || weatherID == 502 || weatherID == 503 || weatherID == 504 || weatherID == 520 || weatherID == 521 || weatherID == 522 || weatherID == 531){ //Regnvejr
+    if(tidNu > solOp && tidNu < solNed){
+      vejrIconIdag = regnIconDag;
+    } else {
+      vejrIconIdag = RegnIconNat;
     }
     iconBilledeIdag();
   } else if(weatherID == 511 || weatherID == 600 || weatherID == 601 || weatherID == 602 || weatherID == 611 || weatherID == 612 || weatherID ==  613 || weatherID == 615 || weatherID == 616 || weatherID == 620 || weatherID == 621 || weatherID == 622){ //Snevejr
@@ -693,11 +707,18 @@ function iconID(){
     vejrIconIdag = måneIcon;
     }
     iconBilledeIdag();
-  } else if(weatherID == 801 || weatherID == 802 || weatherID == 803 || weatherID == 804){ //Overskyet
+  } else if(weatherID == 801 || weatherID == 802){ //lidt Overskyet
     if(tidNu > solOp && tidNu < solNed){
     vejrIconIdag = solOverskyetIcon;
     } else {
     vejrIconIdag = måneOverskyetIcon;
+    }
+    iconBilledeIdag();
+  } else if(weatherID == 803 || weatherID == 804){ // meget Overskyet 
+    if(tidNu > solOp && tidNu < solNed){
+    vejrIconIdag = overskyetIconDag;
+    } else {
+    vejrIconIdag = overskyetIconNat;
     }
     iconBilledeIdag();
   }
@@ -734,16 +755,20 @@ function iconID5Dage(){
  imageMode(CENTER);
   if(q == 200 || q == 201 || q == 202 || q == 210 || q == 211 || q == 212 || q == 221 || q == 230 || q == 231 || q == 232){ //Todenvejr
     image(tordenIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-  } else if(q == 300 || q == 301 || q == 302 || q == 310 || q == 311 || q == 312 || q == 313 || q == 314 || q == 321 || q == 500 || q == 501 || q == 502 || q == 503 || q == 504 || q == 520 || q == 521 || q == 522 || q == 531){ //Regnvejr
-    image(regnIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
+  } else if(q == 300 || q == 301 || q == 302 || q == 310 || q == 311 || q == 312 || q == 313 || q == 314 || q == 321 ){ //småregnvejr
+    image(småRegnIconDag, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
+  } else if(q == 500 || q == 501 || q == 502 || q == 503 || q == 504 || q == 520 || q == 521 || q == 522 || q == 531){ //Regnvejr
+    image(regnIconDag, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
   } else if(q == 511 || q == 600 || q == 601 || q == 602 || q == 611 || q == 612 || q ==  613 || q == 615 || q == 616 || q == 620 || q == 621 || q == 622){ //Snevejr
     image(overskyetSneIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
   } else if(q == 701 || q == 711 || q == 721 || q == 731 || q == 741 || q == 751 || q ==  761 || q == 762 || q == 771 || q == 781){ //Tåge
     image(tågeIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
   } else if(q  == 800){ //Solskin
     image(solIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
-  } else if(q == 801 || q == 802 || q == 803 || q == 804){ //Overskyet
+  } else if(q == 801 || q == 802 ){ //Overskyet
     image(solOverskyetIcon, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
+  } else if(q == 803 || q == 804){ //Overskyet
+    image(overskyetIconDag, icon5DageX, icon5DageY, icon5DageWidth, icon5DageHeight);
   }
 }
 
@@ -903,9 +928,19 @@ async function getVejrData(){
   //Dato i ISO format for jordata api
   let d = new Date();
   let year = d.getFullYear();
-  let month = d.getMonth() + 1;
-  let date = d.getDate();
-  let ISODateStart = year + '-' + '0' + month + '-' + date
+  let month = (d.getMonth() + 1).toString();
+  let date = (d.getDate().toString());
+  if(month.length == 2) {
+    monthText = month;
+  } else if(month.length == 1) {
+    monthText = '0' + month;
+  }
+  if(date.length == 2){
+    dateText = date;
+  } else if(date.length == 1){
+    dateText = '0' + date;
+  }
+  let ISODateStart = year + '-' + monthText + '-' + dateText
 
   //Jord temp + fugt API
   jordTempFugtApi = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + long + '&hourly=soil_temperature_6cm,soil_temperature_18cm,soil_temperature_54cm,soil_moisture_1_3cm,soil_moisture_3_9cm,soil_moisture_9_27cm,soil_moisture_27_81cm&timezone=' + tidzoneNavn + '&start_date='+ ISODateStart + '&end_date=' + ISODateStart;
