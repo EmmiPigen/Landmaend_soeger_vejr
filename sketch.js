@@ -1,3 +1,4 @@
+//Landmænd søger vejr
 const x = document.getElementById("demo");
 let ugeDage = ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"];
 let vindRetningOrd = ["N", "NØ", "Ø", "SØ", "S", "SV", "V", "NV"];
